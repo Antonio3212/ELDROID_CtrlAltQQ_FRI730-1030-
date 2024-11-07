@@ -1,0 +1,29 @@
+<!-- activity_recent_chats.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/backgroundLight">
+
+    <!-- Recent Chats Label -->
+    <TextView
+        android:id="@+id/recentChatsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recent Chats"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginBottom="8dp" />
+
+    <!-- ListView for Recent Chats -->
+    <ListView
+        android:id="@+id/recentChatsListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/divider"
+        android:dividerHeight="1dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp" />
+</LinearLayout>

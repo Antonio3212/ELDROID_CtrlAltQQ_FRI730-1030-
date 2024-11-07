@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Leaf Colors -->
+    <color name="leafGreen">#4CAF50</color> <!-- Button, highlights -->
+    <color name="leafGreenLight">#A5D6A7</color> <!-- Buyer message background -->
+    <color name="leafGreenDark">#388E3C</color> <!-- Seller message background -->
+
+    <color name="darkLeafGreen">#388E3C</color> <!-- Darker shade for contrast -->
+
+    <!-- Background and surface colors with light green and neutral tones -->
+    <color name="backgroundLight">#F5F5F5</color> <!-- Main background color (already used) -->
+    <color name="backgroundGreen">#E8F5E9</color> <!-- Light green background tone -->
+    <color name="surfaceWhite">#FFFFFF</color> <!-- Pure white for contrast where needed -->
+
+    <!-- Colors for text in different states -->
+    <color name="textPrimary">#2E7D32</color> <!-- Dark green for primary text -->
+    <color name="textSecondary">#4E4E4E</color> <!-- Neutral dark grey for secondary text -->
+
+    <!-- Colors for icon tint selector and text color selector -->
+    <color name="iconColorSelector">#2E7D32</color> <!-- Tint for selected icons (matches primary text) -->
+    <color name="iconColorUnselected">#A5D6A7</color> <!-- Lighter shade for unselected icons -->
+
+    <!-- Accent color for cart and chat icons to stand out subtly -->
+    <color name="iconAccent">#66BB6A</color> <!-- Light green accent -->
+    <color name="iconAccentDark">#81C784</color> <!-- Slightly darker green accent -->
+
+    <!-- Divider color -->
+    <color name="divider">#BDBDBD</color> <!-- Light grey for dividers -->
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_margin="8dp"
+    android:elevation="2dp"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:layout_marginHorizontal="4dp"
+    android:clipToPadding="false"
+    android:background="?android:attr/selectableItemBackground">
+
+    <!-- Icon for Notification -->
+    <ImageView
+        android:id="@+id/notificationIcon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/leaf"
+        android:contentDescription="Notification Icon"
+        android:background="@drawable/circle_background"
+        android:padding="8dp"/>
+
+    <!-- Notification Text Container -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Notification Title -->
+        <TextView
+            android:id="@+id/notificationItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Update"
+            android:textColor="#222222"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!-- Notification Message -->
+        <TextView
+            android:id="@+id/notificationItemMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Your plant order has been shipped."
+            android:textColor="#555555"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <!-- Time Text -->
+    <TextView
+        android:id="@+id/notificationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5m ago"
+        android:textColor="#888888"
+        android:textSize="12sp" />
+
+</LinearLayout>

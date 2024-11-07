@@ -1,0 +1,18 @@
+<!-- res/drawable/search_bar_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/backgroundGreen" />
+    <corners android:radius="12dp" />
+    <padding
+        android:left="12dp"
+        android:top="8dp"
+        android:right="9dp"
+        android:bottom="8dp" />
+    <stroke
+        android:color="@color/leafGreen"
+    android:width="2dp" />
+    <shadow
+        android:radius="4dp"
+        android:dx="0dp"
+        android:dy="2dp"
+        android:color="#30000000" />
+</shape>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9FB"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Circular Leaf Image -->
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/leaf"
+            android:scaleType="fitCenter"
+            android:background="@drawable/circle_background"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Community Rules Introduction -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SeedBuy Community Rules"
+            android:textColor="#388E3C"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/montserratmedium"
+            android:gravity="center"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to SeedBuy! To foster a friendly and secure community, please take a moment to read through these simple guidelines. By using SeedBuy, you agree to adhere to these rules and our Terms of Service."
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Divider Line -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Community Rule 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1. Sell, Don’t Advertise"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="List only the items you intend to sell. SeedBuy is designed for transactions, not advertisements."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_spam"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2. Respect Communication Channels"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please use SeedBuy's chat feature for all communication and avoid external links or contact info in product listings."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_respect"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3. Be Courteous and Polite"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Treat others with respect and avoid any form of harassment. We’re here to build a welcoming community for all."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4. Post Clear and Accurate Listings"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Describe your products accurately with clear images and truthful information. Honesty helps build trust in the community."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 5 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5. Avoid Selling Counterfeit Items"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All items listed on SeedBuy must be authentic. Selling counterfeit products is prohibited and may lead to account suspension."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 6 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6. No Hate Speech or Discrimination"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We maintain a zero-tolerance policy for any form of hate speech, discrimination, or harassment. Treat everyone with respect."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 7 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7. Ensure Plant Health and Quality"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All plant listings should reflect healthy, pest-free plants. This will help build a trustworthy plant marketplace."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 8 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8. Provide Clear Shipping Information"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Include accurate shipping information for your listings. This builds trust and keeps transactions smooth."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 9 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9. Fair Pricing"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ensure your pricing is fair and competitive. This helps maintain a healthy marketplace."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Keep pricing fair and reasonable for the products you list. We want to create a balanced and transparent market."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+        <!-- Community Rule 10 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_no_ads"
+                android:layout_marginEnd="8dp"
+                app:tint="#388E3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10. Encourage Honest Feedback"
+                android:textColor="#388E3C"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserratmedium" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Allow your buyers to leave honest reviews and feedback. This will help foster a helpful and genuine community."
+            android:textColor="#555555"
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:fontFamily="@font/montserratlight"
+            android:paddingBottom="16dp" />
+
+
+    </LinearLayout>
+</ScrollView>
