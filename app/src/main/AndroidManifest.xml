@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
@@ -19,9 +23,6 @@
             android:name=".MeFragmentSeller"
             android:exported="false" />
         <activity
-            android:name=".SellerRegister"
-            android:exported="false" />
-        <activity
             android:name=".BuyerRegister"
             android:exported="false" />
         <activity
@@ -31,10 +32,10 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".SellerRegister"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

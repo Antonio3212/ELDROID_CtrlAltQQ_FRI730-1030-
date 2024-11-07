@@ -54,7 +54,7 @@
                 android:text="Seller"
                 android:background="@drawable/loginbtn_custom"
                 android:textSize="20sp"
-                />
+                tools:ignore="OnClick" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buyer"
@@ -68,7 +68,7 @@
                 android:background="@drawable/loginbtn_custom"
                 android:text="Buyer"
                 android:textSize="20sp"
-                />
+                tools:ignore="OnClick" />
 
         </LinearLayout>
 

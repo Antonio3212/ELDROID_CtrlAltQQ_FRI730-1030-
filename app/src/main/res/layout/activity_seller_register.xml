@@ -395,7 +395,8 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:fontFamily="serif-monospace" />
+                android:fontFamily="serif-monospace"
+                android:onClick="onRegisterClick"/>
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
