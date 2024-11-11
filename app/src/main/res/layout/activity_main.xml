@@ -1,0 +1,80 @@
+<!-- res/layout/activity_main.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="50dp"
+
+    android:background="@android:color/white">
+
+    <!-- Account and Security Button -->
+    <Button
+        android:id="@+id/btnAccountSecurity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_lock_lock"
+        android:drawablePadding="8dp"
+        android:text="Account and Security"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        android:elevation="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- My Addresses Button -->
+    <Button
+        android:id="@+id/btnMyAddresses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_mylocation"
+        android:drawablePadding="8dp"
+        android:text="My Addresses"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        android:elevation="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Notification Settings Button -->
+    <Button
+        android:id="@+id/btnNotificationSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_popup_reminder"
+        android:drawablePadding="8dp"
+        android:text="Notification Settings"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        android:elevation="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Community Rules Button -->
+    <Button
+        android:id="@+id/btnCommunityRules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_info_details"
+        android:drawablePadding="8dp"
+        android:text="Community Rules"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        android:elevation="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Rate Us Button -->
+    <Button
+        android:id="@+id/btnRateUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/btn_star_big_on"
+        android:drawablePadding="8dp"
+        android:text="Rate Us"
+        android:backgroundTint="@android:color/white"
+        android:textColor="@android:color/black"
+        android:padding="16dp"
+        android:elevation="4dp" />
+
+</LinearLayout>
