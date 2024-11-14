@@ -20,4 +20,3 @@ public class RegistrationResponse {
         this.message = message;
     }
 }
-
