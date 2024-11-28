@@ -1,4 +1,4 @@
-package com.example.seedbuy;
+package com.example.seedbuy.model;
 
 public class LoginRequest {
     private String email;
@@ -9,11 +9,20 @@ public class LoginRequest {
         this.password = password;
     }
 
+    // Getters and Setters
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

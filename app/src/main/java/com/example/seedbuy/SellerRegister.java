@@ -3,17 +3,16 @@ package com.example.seedbuy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.seedbuy.model.SellerRegistrationRequest;
+import com.example.seedbuy.model.RegistrationResponse;
+import com.example.seedbuy.viewmodel.SellerRegisterViewModel;
 
 public class SellerRegister extends AppCompatActivity {
 
@@ -21,12 +20,14 @@ public class SellerRegister extends AppCompatActivity {
             phoneEditText, shopNameEditText, addressEditText;
     private Button registerButton;
 
+    private SellerRegisterViewModel sellerRegisterViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_register);
 
-        // Initialize the EditText fields
+        // Initialize EditTexts and Button
         firstNameEditText = findViewById(R.id.etfn);
         lastNameEditText = findViewById(R.id.etln);
         emailEditText = findViewById(R.id.email);
@@ -36,19 +37,41 @@ public class SellerRegister extends AppCompatActivity {
         shopNameEditText = findViewById(R.id.etshop);
         addressEditText = findViewById(R.id.etaddress);
 
-        // Initialize the Register button
         registerButton = findViewById(R.id.btnregister);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        // Initialize ViewModel
+        sellerRegisterViewModel = new SellerRegisterViewModel(getApplication());
+
+        // Observe registration response from ViewModel
+        sellerRegisterViewModel.getRegistrationResponse().observe(this, new Observer<RegistrationResponse>() {
             @Override
-            public void onClick(View v) {
-                onRegisterClick(v);
+            public void onChanged(RegistrationResponse response) {
+                if ("success".equals(response.getStatus())) {
+                    Toast.makeText(SellerRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                    // Redirect to Login screen after successful registration
+                    Intent intent = new Intent(SellerRegister.this, Login.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(SellerRegister.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        // Observe error messages
+        sellerRegisterViewModel.getErrorMessage().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                Toast.makeText(SellerRegister.this, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Set the Register button click listener
+        registerButton.setOnClickListener(v -> onRegisterClick());
     }
 
-    public void onRegisterClick(View view) {
-        // Capture input data from the EditTexts
+    private void onRegisterClick() {
+        // Capture input data from EditText fields
         String firstName = firstNameEditText.getText().toString().trim();
         String lastName = lastNameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
@@ -81,58 +104,10 @@ public class SellerRegister extends AppCompatActivity {
             return;
         }
 
-        // Create the SellerRegistrationRequest object with password_confirmation
-        SellerRegistrationRequest request = new SellerRegistrationRequest(
-                firstName, lastName, email, password, confirmPassword, phone, shopName, address);
+        // Create the SellerRegistrationRequest
+        SellerRegistrationRequest request = new SellerRegistrationRequest(firstName, lastName, email, password, confirmPassword, phone, shopName, address);
 
-        // Log the request data for debugging purposes
-        Log.d("SellerRegister", "Request data: " + request.toString());
-
-        // Create API service instance
-        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-
-        // Call the API for registration
-        Call<RegistrationResponse> call = apiService.registerSeller(request);
-
-        // Execute the request asynchronously
-        call.enqueue(new Callback<RegistrationResponse>() {
-            @Override
-            public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                if (response.isSuccessful()) {
-                    // Log the response body for debugging
-                    RegistrationResponse registrationResponse = response.body();
-                    if (registrationResponse != null) {
-                        Log.d("SellerRegister", "Success response: " + registrationResponse.getMessage());
-                        if ("success".equals(registrationResponse.getStatus())) {
-                            Toast.makeText(SellerRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();
-
-                            // Redirect to Login screen after successful registration
-                            Intent intent = new Intent(SellerRegister.this, Login.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            // Server responded with an error message
-                            Toast.makeText(SellerRegister.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        // Null response body
-                        Log.e("SellerRegister", "Null response body");
-                        Toast.makeText(SellerRegister.this, "Registration failed, null response body", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    // Log response code and message for debugging
-                    Log.e("SellerRegister", "Response failed: " + response.code() + ", " + response.message());
-                    Toast.makeText(SellerRegister.this, "Registration failed. Please try again.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                // Log failure details
-                Log.e("SellerRegister", "Network failure: " + t.getMessage());
-                Toast.makeText(SellerRegister.this, "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        // Call ViewModel to initiate the registration API call
+        sellerRegisterViewModel.registerSeller(request);
     }
 }

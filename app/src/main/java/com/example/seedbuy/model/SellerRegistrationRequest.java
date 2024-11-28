@@ -1,4 +1,4 @@
-package com.example.seedbuy;
+package com.example.seedbuy.model;
 
 public class SellerRegistrationRequest {
 

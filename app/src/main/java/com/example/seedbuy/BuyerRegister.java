@@ -1,3 +1,4 @@
+// BuyerRegister.java
 package com.example.seedbuy;
 
 import android.content.Intent;
@@ -6,15 +7,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.seedbuy.model.RegistrationRequest;
+import com.example.seedbuy.model.RegistrationResponse;
+import com.example.seedbuy.viewmodel.BuyerRegisterViewModel;
 
 public class BuyerRegister extends AppCompatActivity {
 
     private EditText firstName, lastName, email, password, confirmPassword, mobileNo;
     private Button signUpButton;
+    private BuyerRegisterViewModel buyerRegisterViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +35,31 @@ public class BuyerRegister extends AppCompatActivity {
 
         signUpButton = findViewById(R.id.btn_signup);
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onRegisterClick(view);
+        // Initialize ViewModel
+        buyerRegisterViewModel = new ViewModelProvider(this).get(BuyerRegisterViewModel.class);
+
+        // Observe LiveData for registration success
+        buyerRegisterViewModel.getRegistrationResponse().observe(this, registrationResponse -> {
+            if (registrationResponse != null) {
+                Toast.makeText(BuyerRegister.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                // Redirect to login page
+                Intent intent = new Intent(BuyerRegister.this, Login.class);
+                startActivity(intent);
+                finish();
             }
         });
+
+        // Observe LiveData for error messages
+        buyerRegisterViewModel.getErrorMessage().observe(this, errorMessage -> {
+            if (errorMessage != null) {
+                Toast.makeText(BuyerRegister.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        signUpButton.setOnClickListener(view -> onRegisterClick());
     }
 
-    public void onRegisterClick(View view) {
+    public void onRegisterClick() {
         String firstNameText = firstName.getText().toString().trim();
         String lastNameText = lastName.getText().toString().trim();
         String emailText = email.getText().toString().trim();
@@ -62,30 +83,7 @@ public class BuyerRegister extends AppCompatActivity {
                 firstNameText, lastNameText, emailText, passwordText, confirmPasswordText, mobileNoText
         );
 
-        // Call the API using Retrofit
-        ApiService apiService = RetrofitClient.getApiService();
-        Call<RegistrationResponse> call = apiService.registerBuyer(request);
-
-        call.enqueue(new Callback<RegistrationResponse>() {
-            @Override
-            public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    RegistrationResponse registrationResponse = response.body();
-                    Toast.makeText(BuyerRegister.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    // Redirect to login page
-                    Intent intent = new Intent(BuyerRegister.this, Login.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(BuyerRegister.this, "Registration failed: " + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-                Toast.makeText(BuyerRegister.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Call the registerBuyer method in ViewModel
+        buyerRegisterViewModel.registerBuyer(request);
     }
 }

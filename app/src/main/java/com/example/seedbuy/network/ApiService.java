@@ -1,4 +1,10 @@
-package com.example.seedbuy;
+package com.example.seedbuy.network;
+
+import com.example.seedbuy.model.LoginRequest;
+import com.example.seedbuy.model.LoginResponse;
+import com.example.seedbuy.model.RegistrationRequest;
+import com.example.seedbuy.model.RegistrationResponse;
+import com.example.seedbuy.model.SellerRegistrationRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,4 +18,8 @@ public interface ApiService {
 
     @POST("registerSeller") // Update to match the new endpoint
     Call<RegistrationResponse> registerSeller(@Body SellerRegistrationRequest request);
+
+    @POST("login") // Update to match the new endpoint
+    Call<LoginResponse> login(@Body LoginRequest request);
+
 }
