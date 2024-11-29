@@ -4,9 +4,12 @@ import com.example.seedbuy.model.LoginRequest;
 import com.example.seedbuy.model.LoginResponse;
 import com.example.seedbuy.model.Product;
 import com.example.seedbuy.model.ProductResponse;
+import com.example.seedbuy.model.PurchaseRequest;
+import com.example.seedbuy.model.PurchaseResponse;
 import com.example.seedbuy.model.RegistrationRequest;
 import com.example.seedbuy.model.RegistrationResponse;
 import com.example.seedbuy.model.SellerRegistrationRequest;
+
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -42,6 +45,8 @@ public interface ApiService {
     @GET("products")
     Call<ProductResponse> getAllProducts();
 
+    @POST("purchase")
+    Call<PurchaseResponse> purchase(@Body PurchaseRequest purchaseRequest);
 
 
 }

@@ -1,0 +1,77 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Product Name -->
+    <TextView
+        android:id="@+id/purchase_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Product Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Product Price -->
+    <TextView
+        android:id="@+id/purchase_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/purchase_product_name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Customer Name -->
+    <EditText
+        android:id="@+id/purchase_customer_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your name"
+        app:layout_constraintTop_toBottomOf="@id/purchase_product_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Shipping Address -->
+    <EditText
+        android:id="@+id/purchase_shipping_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter shipping address"
+        app:layout_constraintTop_toBottomOf="@id/purchase_customer_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Payment Method -->
+    <EditText
+        android:id="@+id/purchase_payment_method"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter payment method"
+        app:layout_constraintTop_toBottomOf="@id/purchase_shipping_address"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Confirm Purchase Button -->
+    <Button
+        android:id="@+id/purchase_confirm_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:text="Confirm Purchase"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/purchase_payment_method"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

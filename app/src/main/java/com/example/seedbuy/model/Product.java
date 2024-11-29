@@ -1,15 +1,19 @@
 package com.example.seedbuy.model;
+
 import java.io.Serializable;
+
 public class Product implements Serializable {
 
+    private String id;        // Change this to String, if product ID can be alphanumeric
     private String name;
     private String price;
     private String quantity;
     private String category;
-    private String image_path;  // The relative path of the product image
+    private String image_path;
 
     // Constructor
-    public Product(String name, String price, String quantity, String category, String image_path) {
+    public Product(String id, String name, String price, String quantity, String category, String image_path) {
+        this.id = id;         // Initialize the id as String
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -18,6 +22,14 @@ public class Product implements Serializable {
     }
 
     // Getters and Setters
+    public String getId() {
+        return id;            // Return the product ID as a String
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,8 +72,6 @@ public class Product implements Serializable {
 
     // Method to get the full URL for the image
     public String getImageUrl() {
-        // Assuming the backend API provides the image path, and the base URL is hardcoded (or comes from a config)
         return "http://10.0.2.2:8000/storage/" + image_path;
-
     }
 }
