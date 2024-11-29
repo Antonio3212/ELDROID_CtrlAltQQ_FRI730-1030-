@@ -61,16 +61,17 @@
     <!-- Product Price Value -->
 
     <!-- Product Quantity Label -->
+
     <TextView
         android:id="@+id/product_detail_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Price: $199.99"
+        android:text="$199.99"
         android:textColor="#FF5722"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_detail_name" />
 
@@ -89,16 +90,17 @@
     <!-- Product Quantity Value -->
 
     <!-- Product Description Label -->
+
     <TextView
         android:id="@+id/product_detail_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="In Stock: 25"
+        android:text="25"
         android:textColor="#757575"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintHorizontal_bias="0.211"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/product_detail_price" />
 

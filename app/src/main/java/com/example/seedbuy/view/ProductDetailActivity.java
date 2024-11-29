@@ -37,7 +37,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         if (selectedProduct != null) {
             productNameTextView.setText(selectedProduct.getName());
             productPriceTextView.setText("$" + selectedProduct.getPrice());
-            productQuantityTextView.setText("Qty: " + selectedProduct.getQuantity());
+            productQuantityTextView.setText("" + selectedProduct.getQuantity());
 
             // Load the product image using Glide
             Glide.with(this)
