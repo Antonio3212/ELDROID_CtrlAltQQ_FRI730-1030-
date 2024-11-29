@@ -3,6 +3,7 @@ package com.example.seedbuy.network;
 import com.example.seedbuy.model.LoginRequest;
 import com.example.seedbuy.model.LoginResponse;
 import com.example.seedbuy.model.Product;
+import com.example.seedbuy.model.ProductResponse;
 import com.example.seedbuy.model.RegistrationRequest;
 import com.example.seedbuy.model.RegistrationResponse;
 import com.example.seedbuy.model.SellerRegistrationRequest;
@@ -11,6 +12,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -36,6 +38,10 @@ public interface ApiService {
                              @Part("quantity") RequestBody quantity,
                              @Part("category") RequestBody category,
                              @Part MultipartBody.Part image);
+
+    @GET("products")
+    Call<ProductResponse> getAllProducts();
+
 
 
 }
