@@ -1,7 +1,6 @@
 package com.example.seedbuy.network;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,21 +22,17 @@ public class RetrofitClient {
                     .setLenient()  // Allow lenient JSON parsing
                     .create();
 
-            // Setup OkHttpClient for logging
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
+            // Setup OkHttpClient without logging
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-                    .addInterceptor(interceptor)  // Add logging interceptor
                     .build();
 
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)  // Use the correct base URL
                     .addConverterFactory(GsonConverterFactory.create(gson))  // Use lenient Gson
-                    .client(client)  // Add the OkHttp client with logging
+                    .client(client)  // Add the OkHttp client without logging
                     .build();
         }
         return retrofit;

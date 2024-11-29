@@ -1,10 +1,11 @@
 package com.example.seedbuy.viewmodel;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.seedbuy.model.LoginRequest;
 import com.example.seedbuy.model.LoginResponse;
@@ -14,10 +15,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginViewModel extends ViewModel {
+public class LoginViewModel extends AndroidViewModel {
 
     private MutableLiveData<LoginResponse> loginResponseLiveData = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
+
+    public LoginViewModel(Application application) {
+        super(application);
+    }
 
     public LiveData<LoginResponse> getLoginResponse() {
         return loginResponseLiveData;

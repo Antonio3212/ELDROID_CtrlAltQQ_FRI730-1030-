@@ -1,4 +1,4 @@
-package com.example.seedbuy;
+package com.example.seedbuy.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
+import com.example.seedbuy.R;
 import com.example.seedbuy.model.SellerRegistrationRequest;
 import com.example.seedbuy.model.RegistrationResponse;
 import com.example.seedbuy.viewmodel.SellerRegisterViewModel;

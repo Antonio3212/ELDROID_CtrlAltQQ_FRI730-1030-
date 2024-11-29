@@ -1,4 +1,4 @@
-package com.example.seedbuy;
+package com.example.seedbuy.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.seedbuy.R;
 
 public class HomePage extends AppCompatActivity {
 

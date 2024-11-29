@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,25 +22,31 @@
         android:theme="@style/Theme.SeedBuy"
         tools:targetApi="31">
         <activity
-            android:name=".MeFragmentBuyer"
+            android:name=".view.HomePageSeller"
             android:exported="false" />
         <activity
-            android:name=".MeFragmentSeller"
+            android:name=".view.HomePageBuyer"
             android:exported="false" />
         <activity
-            android:name=".BuyerRegister"
+            android:name=".view.MeFragmentBuyer"
             android:exported="false" />
         <activity
-            android:name=".ChooseUser"
+            android:name=".view.MeFragmentSeller"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".view.BuyerRegister"
             android:exported="false" />
         <activity
-            android:name=".SellerRegister"
+            android:name=".view.ChooseUser"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".view.Login"
+            android:exported="false" />
+        <activity
+            android:name=".view.SellerRegister"
+            android:exported="false" />
+        <activity
+            android:name=".view.HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
