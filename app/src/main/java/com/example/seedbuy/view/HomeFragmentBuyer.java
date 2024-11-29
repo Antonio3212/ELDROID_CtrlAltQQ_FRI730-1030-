@@ -32,7 +32,6 @@ public class HomeFragmentBuyer extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_buyer, container, false);
 
-        // Initialize RecyclerView and set its LayoutManager to GridLayoutManager (2 columns)
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2 columns
 
@@ -48,11 +47,9 @@ public class HomeFragmentBuyer extends Fragment {
             @Override
             public void onChanged(List<Product> products) {
                 if (products != null) {
-                    // Check if the product list is not empty
                     if (!products.isEmpty()) {
-                        // When products are fetched successfully, set them in the adapter
                         if (productAdapter == null) {
-                            productAdapter = new ProductAdapter(products);
+                            productAdapter = new ProductAdapter(products, getContext());  // Pass context here
                             recyclerView.setAdapter(productAdapter);
                         } else {
                             productAdapter.notifyDataSetChanged();
@@ -62,19 +59,18 @@ public class HomeFragmentBuyer extends Fragment {
                         errorMessageTextView.setVisibility(View.VISIBLE);
                         errorMessageTextView.setText("No products available.");
                     }
-                    progressBar.setVisibility(View.GONE); // Hide the progress bar once data is loaded
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
 
-        // Observe the loading state to show/hide the ProgressBar
         productDisplayViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLoading) {
                 if (isLoading) {
-                    progressBar.setVisibility(View.VISIBLE); // Show progress bar while loading
+                    progressBar.setVisibility(View.VISIBLE);
                 } else {
-                    progressBar.setVisibility(View.GONE); // Hide progress bar when loading is done
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -84,7 +80,7 @@ public class HomeFragmentBuyer extends Fragment {
             @Override
             public void onChanged(String errorMessage) {
                 if (errorMessage != null) {
-                    errorMessageTextView.setVisibility(View.VISIBLE); // Show error message
+                    errorMessageTextView.setVisibility(View.VISIBLE);
                     errorMessageTextView.setText(errorMessage);
                 }
             }

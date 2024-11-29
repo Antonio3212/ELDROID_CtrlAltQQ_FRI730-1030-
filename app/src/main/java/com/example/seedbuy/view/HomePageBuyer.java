@@ -36,10 +36,6 @@ public class HomePageBuyer extends AppCompatActivity  {
 
             if (itemId == R.id.homeBuyerId) {
                 selectedFragment = new HomeFragmentBuyer();
-            } else if (itemId == R.id.trendsId) {
-                selectedFragment = new TrendsFragment();
-            } else if (itemId == R.id.notificationId) {
-                selectedFragment = new NotificationFragmentBuyer();
             } else if (itemId == R.id.meId) {
                 selectedFragment = new Fragment();
             }

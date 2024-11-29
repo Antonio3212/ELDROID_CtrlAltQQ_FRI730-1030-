@@ -1,25 +1,23 @@
-// Product.java
-
 package com.example.seedbuy.model;
+import java.io.Serializable;
+public class Product implements Serializable {
 
-public class Product {
-
-    private int id;
     private String name;
-    private double price;
-    private int quantity;
+    private String price;
+    private String quantity;
     private String category;
-    private String image_path;
+    private String image_path;  // The relative path of the product image
 
-    // Getters and setters
-    public int getId() {
-        return id;
+    // Constructor
+    public Product(String name, String price, String quantity, String category, String image_path) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.image_path = image_path;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Getters and Setters
     public String getName() {
         return name;
     }
@@ -28,19 +26,19 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -58,5 +56,12 @@ public class Product {
 
     public void setImagePath(String image_path) {
         this.image_path = image_path;
+    }
+
+    // Method to get the full URL for the image
+    public String getImageUrl() {
+        // Assuming the backend API provides the image path, and the base URL is hardcoded (or comes from a config)
+        return "http://10.0.2.2:8000/storage/" + image_path;
+
     }
 }
