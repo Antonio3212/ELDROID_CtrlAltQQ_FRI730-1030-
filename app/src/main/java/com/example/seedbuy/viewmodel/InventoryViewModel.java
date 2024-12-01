@@ -25,8 +25,9 @@ public class InventoryViewModel extends AndroidViewModel {
 
     private ApiService apiService;
     private MutableLiveData<List<Product>> productsLiveData = new MutableLiveData<>();
+    private MutableLiveData<Product> productLiveData = new MutableLiveData<>();
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false); // Default to false
+    private MutableLiveData<Boolean> isLoading = new MutableLiveData<>(false);
 
     public InventoryViewModel(Application application) {
         super(application);
@@ -36,6 +37,11 @@ public class InventoryViewModel extends AndroidViewModel {
     // Get products live data
     public LiveData<List<Product>> getProductsLiveData() {
         return productsLiveData;
+    }
+
+    // Get a single product live data
+    public LiveData<Product> getProductLiveData() {
+        return productLiveData;
     }
 
     // Get error message live data
@@ -50,35 +56,30 @@ public class InventoryViewModel extends AndroidViewModel {
 
     // Fetch products from the API
     public void fetchProducts() {
-        isLoading.setValue(true); // Show loading indicator
+        isLoading.setValue(true);
 
         Call<ProductResponse> call = apiService.getAllProducts();
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                isLoading.setValue(false); // Hide loading indicator
+                isLoading.setValue(false);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("InventoryViewModel", "Fetched products: " + response.body().getProducts());
                     productsLiveData.setValue(response.body().getProducts());
                 } else {
-                    Log.e("InventoryViewModel", "Failed to fetch products: " + response.message());
                     errorMessage.setValue("Failed to fetch products: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
-                isLoading.setValue(false); // Hide loading indicator
-                Log.e("InventoryViewModel", "Error: " + t.getMessage());
+                isLoading.setValue(false);
                 errorMessage.setValue("Network failure: " + t.getMessage());
             }
         });
     }
 
-    // Add a new product
     public void addProduct(String name, String price, String quantity, String category, File imageFile) {
-        // Prepare the request bodies
         RequestBody nameBody = RequestBody.create(MultipartBody.FORM, name);
         RequestBody priceBody = RequestBody.create(MultipartBody.FORM, price);
         RequestBody quantityBody = RequestBody.create(MultipartBody.FORM, quantity);
@@ -90,32 +91,92 @@ public class InventoryViewModel extends AndroidViewModel {
                     RequestBody.create(MultipartBody.FORM, imageFile));
         }
 
-        // Make the API call to add the product
         apiService.addProduct(nameBody, priceBody, quantityBody, categoryBody, imagePart).enqueue(new Callback<Product>() {
             @Override
             public void onResponse(Call<Product> call, Response<Product> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // Product added successfully
                     Product addedProduct = response.body();
 
-                    // Get the current list of products
                     List<Product> currentProducts = productsLiveData.getValue();
                     if (currentProducts != null) {
-                        // Add the newly added product to the list
                         currentProducts.add(addedProduct);
-                        productsLiveData.setValue(currentProducts); // Update LiveData with new list
+                        productsLiveData.setValue(currentProducts);
                     }
-
-                    Log.d("InventoryViewModel", "Product added successfully: " + addedProduct.getName());
                 } else {
-                    Log.e("InventoryViewModel", "Failed to add product: " + response.message());
                     errorMessage.setValue("Failed to add product");
                 }
             }
 
             @Override
             public void onFailure(Call<Product> call, Throwable t) {
-                Log.e("InventoryViewModel", "Error adding product: " + t.getMessage());
+                errorMessage.setValue("Network failure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void updateProduct(String productId, String name, String price, String quantity, String category, File imageFile) {
+        // Handle nullable fields by checking for null/empty
+        RequestBody nameBody = (name != null && !name.isEmpty()) ? RequestBody.create(MultipartBody.FORM, name) : null;
+        RequestBody priceBody = (price != null && !price.isEmpty()) ? RequestBody.create(MultipartBody.FORM, price) : null;
+        RequestBody quantityBody = (quantity != null && !quantity.isEmpty()) ? RequestBody.create(MultipartBody.FORM, quantity) : null;
+        RequestBody categoryBody = (category != null && !category.isEmpty()) ? RequestBody.create(MultipartBody.FORM, category) : null;
+
+        // Handle image file part (optional)
+        MultipartBody.Part imagePart = null;
+        if (imageFile != null) {
+            imagePart = MultipartBody.Part.createFormData("image", imageFile.getName(),
+                    RequestBody.create(MultipartBody.FORM, imageFile));
+        }
+
+        // Make the Retrofit API call to update the product
+        apiService.updateProduct(productId, nameBody, priceBody, quantityBody, categoryBody, imagePart).enqueue(new Callback<Product>() {
+            @Override
+            public void onResponse(Call<Product> call, Response<Product> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // Handle success
+                    Product updatedProduct = response.body();
+                    List<Product> currentProducts = productsLiveData.getValue();
+                    if (currentProducts != null) {
+                        for (int i = 0; i < currentProducts.size(); i++) {
+                            if (currentProducts.get(i).getId().equals(updatedProduct.getId())) {
+                                currentProducts.set(i, updatedProduct);  // Replace the old product with updated one
+                                break;
+                            }
+                        }
+                        productsLiveData.setValue(currentProducts);
+                    }
+                } else {
+                    errorMessage.setValue("Failed to update product: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Product> call, Throwable t) {
+                errorMessage.setValue("Network failure: " + t.getMessage());
+            }
+        });
+    }
+
+
+
+    // Delete a product
+    public void deleteProduct(String productId) {
+        apiService.deleteProduct(productId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    List<Product> currentProducts = productsLiveData.getValue();
+                    if (currentProducts != null) {
+                        currentProducts.removeIf(product -> product.getId().equals(productId));
+                        productsLiveData.setValue(currentProducts);
+                    }
+                } else {
+                    errorMessage.setValue("Failed to delete product");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 errorMessage.setValue("Network failure: " + t.getMessage());
             }
         });

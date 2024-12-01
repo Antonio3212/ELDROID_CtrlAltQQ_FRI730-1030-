@@ -18,10 +18,13 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -53,6 +56,21 @@ public interface ApiService {
 
     @GET("orders")  // The endpoint for fetching all orders
     Call<List<Order>> getAllOrders();
+    @GET("products/{id}")
+    Call<Product> getProductById(@Path("id") String productId);
 
+    @Multipart
+    @PUT("products/{id}")
+    Call<Product> updateProduct(@Path("id") String productId,
+                                @Part("name") RequestBody name,
+                                @Part("price") RequestBody price,
+                                @Part("quantity") RequestBody quantity,
+                                @Part("category") RequestBody category,
+                                @Part MultipartBody.Part image);
+
+
+
+    @DELETE("products/{id}")
+    Call<Void> deleteProduct(@Path("id") String productId);
 
 }

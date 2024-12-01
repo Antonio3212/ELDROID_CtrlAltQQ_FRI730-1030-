@@ -33,7 +33,6 @@ import java.util.List;
 
 public class InventoryFragment extends Fragment {
     private Button btnAddProduct;
-    private Button btnAddProductConfirm;
     private EditText edtProductName, edtProductPrice, edtProductQuantity;
     private Spinner spinnerCategory;
     private ImageView imgProduct;
@@ -52,18 +51,22 @@ public class InventoryFragment extends Fragment {
         // Initialize the ViewModel
         inventoryViewModel = new ViewModelProvider(this).get(InventoryViewModel.class);
 
-        // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recyclerview_products);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Initialize the adapter with an empty list
-        inventoryProductAdapter = new InventoryProductAdapter(new ArrayList<>(), requireContext());
+        // Initialize the adapter with an empty list and set the click listener
+        inventoryProductAdapter = new InventoryProductAdapter(new ArrayList<>(), requireContext(), product -> {
+            // Open product details activity on item click
+            Intent intent = new Intent(requireContext(), InventoryProductDetailsActivity.class);
+            intent.putExtra("product", product);
+            startActivity(intent);
+        });
+
         recyclerView.setAdapter(inventoryProductAdapter);
 
         // Observe the products LiveData to update RecyclerView
         inventoryViewModel.getProductsLiveData().observe(getViewLifecycleOwner(), products -> {
             if (products != null && !products.isEmpty()) {
-                // Update the adapter with the fetched products
                 inventoryProductAdapter.updateProductList(products);
             }
         });
@@ -96,17 +99,14 @@ public class InventoryFragment extends Fragment {
         Button btnSelectImage = dialog.findViewById(R.id.btn_select_image);
         Button btnAddProductConfirm = dialog.findViewById(R.id.btn_add_product_confirm);
 
-        // Set up category spinner (for example purposes)
+        // Set up category spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
                 R.array.product_categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
 
         // Handle image selection
-        btnSelectImage.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, IMAGE_PICKER_REQUEST_CODE);
-        });
+        btnSelectImage.setOnClickListener(v -> openImagePicker());
 
         // Handle add product action
         btnAddProductConfirm.setOnClickListener(v -> {
@@ -118,7 +118,7 @@ public class InventoryFragment extends Fragment {
             // Call ViewModel to add product
             if (imageFile != null) {
                 inventoryViewModel.addProduct(name, price, quantity, category, imageFile);
-                dialog.dismiss();
+                dialog.dismiss(); // Close the dialog after submitting
             } else {
                 Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT).show();
             }
@@ -138,7 +138,6 @@ public class InventoryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Check if the result is from the image picker
         if (requestCode == IMAGE_PICKER_REQUEST_CODE && resultCode == getActivity().RESULT_OK) {
             Uri imageUri = data.getData();
 
@@ -146,10 +145,10 @@ public class InventoryFragment extends Fragment {
                 // Use Glide to load the image URI into the ImageView
                 Glide.with(this)
                         .load(imageUri)
-                        .into(imgProduct);  // Display the image
+                        .into(imgProduct);
 
-                // Optionally, save the image file path if you need to upload it later
-                imageFile = new File(getRealPathFromURI(imageUri));  // If you want to upload the image later
+                // Save the image file for later use (upload)
+                imageFile = new File(getRealPathFromURI(imageUri));
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -158,12 +157,11 @@ public class InventoryFragment extends Fragment {
         }
     }
 
-    // Convert URI to file path (For API 29 and above, this might not work)
+    // Convert URI to file path (for API 29 and above, we can handle this with a ContentResolver)
     private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
         android.database.Cursor cursor = requireContext().getContentResolver().query(contentUri, proj, null, null, null);
 
-        // For Android 10 and above, we don't use the file path directly
         if (cursor != null) {
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -172,7 +170,6 @@ public class InventoryFragment extends Fragment {
             return path;
         }
 
-        // Fallback to using a ContentResolver for API 29 and above
         if ("content".equalsIgnoreCase(contentUri.getScheme())) {
             return contentUri.getPath();
         }
