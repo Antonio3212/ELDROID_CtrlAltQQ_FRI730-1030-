@@ -15,17 +15,14 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page); // Ensure this matches your layout filename
+        setContentView(R.layout.activity_home_page);
 
-        // Find the buttons by their IDs
         Button loginButton = findViewById(R.id.btn1);
         Button signUpButton = findViewById(R.id.btn2);
 
-        // Set OnClickListener for the Login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Log message for debugging
                 Log.d("HomePage", "Login button clicked!");
 
                 // Start the Login Activity
@@ -34,7 +31,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for the Sign Up button
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

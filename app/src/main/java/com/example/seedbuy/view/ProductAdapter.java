@@ -29,7 +29,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> productList;
     private Context context;
 
-    // Constructor for the adapter
     public ProductAdapter(List<Product> productList, Context context) {
         this.productList = productList;
         this.context = context;
@@ -50,45 +49,42 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.priceTextView.setText("$" + product.getPrice());
         holder.quantityTextView.setText("" + product.getQuantity());
 
-        // Use getImageUrl() to get the full URL for the product image
-        String imageUrl = product.getImageUrl();  // Assuming getImageUrl() method returns the full URL
+        String imageUrl = product.getImageUrl();
 
-        // Log the image URL to check if it is correct
         Log.d("ProductAdapter", "Image URL: " + imageUrl);
 
         // Load the image using Glide
         Glide.with(holder.imageView.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_launcher_background)  // Optional placeholder while image is loading
-                .error(R.drawable.ic_launcher_foreground)      // Optional error image if loading fails
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         // Log the error if image loading fails
                         Log.e("GlideError", "Error loading image: " + (e != null ? e.getMessage() : "Unknown"));
-                        return false;  // Allow Glide to handle the error
+                        return false;
                     }
 
                     @Override
                     public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         // Log message when image is successfully loaded
                         Log.d("Glide", "Image loaded successfully!");
-                        return false;  // Continue normal Glide operations
+                        return false;
                     }
                 })
-                .into(holder.imageView);  // Set the image into ImageView
+                .into(holder.imageView);
 
-        // Handle item click: Open ProductDetailActivity with product data
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ProductDetailActivity.class);
-            intent.putExtra("product", product); // Pass the Product object to the detail activity
+            intent.putExtra("product", product);
             context.startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();  // Return the total number of products
+        return productList.size();
     }
 
     // ViewHolder class for holding item views

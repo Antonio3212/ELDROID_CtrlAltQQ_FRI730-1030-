@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SeedBuy</string>
     <string-array name="product_categories">
         <item>Vegetable Seeds</item>
@@ -6,5 +6,38 @@
         <item>Herb Seeds</item>
         <item>Fruit Seeds and Trees</item>
     </string-array>
+
+    <string name="toast_all_fields_required">All fields are required</string>
+    <string name="toast_password_mismatch">Passwords do not match</string>
+    <string name="toast_registration_success">Registration successful. Redirecting to login page...</string>
+    <string name="toast_error_message">An error occurred. Please try again.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="toast_seller_login_clicked">Seller registration button clicked</string>
+    <string name="toast_buyer_signup_clicked">Buyer registration button clicked</string>
+
+    <string name="toast_loading_products">Loading products...</string>
+    <string name="toast_no_products_available">No products available.</string>
+    <string name="toast_error_fetching_products">Error fetching products. Please try again.</string>
+
+    <string name="toast_failed_to_load_orders">Failed to load orders</string>
+
+    <string name="toast_select_image">Please select an image</string>
+    <string name="toast_error_selecting_image">Error selecting image</string>
+
+    <string name="toast_product_updated_successfully">Product updated successfully</string>
+    <string name="toast_product_deleted_successfully">Product deleted successfully</string>
+
+    <string name="toast_seller_logged_in">Seller logged in</string>
+    <string name="toast_buyer_logged_in">Buyer logged in</string>
+    <string name="toast_fill_in_fields">Please fill in both fields</string>
+
+    <string name="toast_purchase_successful">Purchase Successful! Order ID: %1$s</string>
+    <string name="toast_purchase_failed">Purchase Failed: %1$s</string>
+
+    <string name="toast_registration_failed">Registration failed: %1$s</string>
+    <string name="toast_fill_all_fields">Please fill in all fields</string>
+    <string name="toast_invalid_email">Please enter a valid email address</string>
+    <string name="toast_passwords_do_not_match">Passwords do not match</string>
+    <string name="toast_password_length">Password must be at least 6 characters</string>
 </resources>

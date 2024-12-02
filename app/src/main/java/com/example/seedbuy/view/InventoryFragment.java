@@ -99,35 +99,30 @@ public class InventoryFragment extends Fragment {
         Button btnSelectImage = dialog.findViewById(R.id.btn_select_image);
         Button btnAddProductConfirm = dialog.findViewById(R.id.btn_add_product_confirm);
 
-        // Set up category spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
                 R.array.product_categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
 
-        // Handle image selection
         btnSelectImage.setOnClickListener(v -> openImagePicker());
 
-        // Handle add product action
         btnAddProductConfirm.setOnClickListener(v -> {
             String name = edtProductName.getText().toString();
             String price = edtProductPrice.getText().toString();
             String quantity = edtProductQuantity.getText().toString();
             String category = spinnerCategory.getSelectedItem().toString();
 
-            // Call ViewModel to add product
             if (imageFile != null) {
                 inventoryViewModel.addProduct(name, price, quantity, category, imageFile);
-                dialog.dismiss(); // Close the dialog after submitting
+                dialog.dismiss();
             } else {
-                Toast.makeText(requireContext(), "Please select an image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.toast_select_image, Toast.LENGTH_SHORT).show();
             }
         });
 
         dialog.show();
     }
 
-    // Open the image picker
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
@@ -142,22 +137,19 @@ public class InventoryFragment extends Fragment {
             Uri imageUri = data.getData();
 
             try {
-                // Use Glide to load the image URI into the ImageView
                 Glide.with(this)
                         .load(imageUri)
                         .into(imgProduct);
 
-                // Save the image file for later use (upload)
                 imageFile = new File(getRealPathFromURI(imageUri));
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(requireContext(), "Error selecting image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.toast_error_selecting_image, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    // Convert URI to file path (for API 29 and above, we can handle this with a ContentResolver)
     private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
         android.database.Cursor cursor = requireContext().getContentResolver().query(contentUri, proj, null, null, null);

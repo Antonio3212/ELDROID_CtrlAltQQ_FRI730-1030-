@@ -12,14 +12,13 @@ import java.util.concurrent.TimeUnit;
 public class RetrofitClient {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://10.0.2.2:8000/api/"; // Base URL (use the correct API URL)
+    private static final String BASE_URL = "http://10.0.2.2:8000/api/";
     private static final int TIMEOUT = 30;
 
     public static Retrofit getInstance() {
         if (retrofit == null) {
-            // Create the Gson instance with lenient parsing
             Gson gson = new GsonBuilder()
-                    .setLenient()  // Allow lenient JSON parsing
+                    .setLenient()
                     .create();
 
             // Setup OkHttpClient without logging
@@ -30,15 +29,14 @@ public class RetrofitClient {
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)  // Use the correct base URL
-                    .addConverterFactory(GsonConverterFactory.create(gson))  // Use lenient Gson
-                    .client(client)  // Add the OkHttp client without logging
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(client)
                     .build();
         }
         return retrofit;
     }
 
-    // Get ApiService instance
     public static ApiService getApiService() {
         return getInstance().create(ApiService.class);
     }

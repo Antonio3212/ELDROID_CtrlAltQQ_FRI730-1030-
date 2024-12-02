@@ -19,7 +19,6 @@ public class Login extends AppCompatActivity {
     private EditText email, password;
     private Button loginButton;
 
-    // ViewModel initialization
     private LoginViewModel loginViewModel;
 
     @Override
@@ -27,33 +26,27 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Initialize views
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginbtn);
 
-        // Initialize ViewModel using ViewModelProvider
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        // Observe login response
         loginViewModel.getLoginResponse().observe(this, new Observer<LoginResponse>() {
             @Override
             public void onChanged(LoginResponse loginResponse) {
                 if (loginResponse != null && "success".equals(loginResponse.getStatus())) {
                     if ("seller".equals(loginResponse.getUser_type())) {
-                        Toast.makeText(Login.this, "Seller logged in", Toast.LENGTH_SHORT).show();
-                        // Navigate to HomePageSeller activity when a seller logs in
+                        Toast.makeText(Login.this, R.string.toast_seller_logged_in, Toast.LENGTH_SHORT).show();
                         navigateToHomePageSeller();
                     } else if ("buyer".equals(loginResponse.getUser_type())) {
-                        Toast.makeText(Login.this, "Buyer logged in", Toast.LENGTH_SHORT).show();
-                        // Navigate to HomePageBuyer activity when a buyer logs in
+                        Toast.makeText(Login.this, R.string.toast_buyer_logged_in, Toast.LENGTH_SHORT).show();
                         navigateToHomePageBuyer();
                     }
                 }
             }
         });
 
-        // Observe error messages
         loginViewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String message) {
@@ -63,18 +56,15 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        // Set up the login button click listener
         loginButton.setOnClickListener(v -> {
             String userEmail = email.getText().toString().trim();
             String userPassword = password.getText().toString().trim();
 
-            // Validate input
             if (userEmail.isEmpty() || userPassword.isEmpty()) {
-                Toast.makeText(Login.this, "Please fill in both fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, R.string.toast_fill_in_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Call the login method in ViewModel
             loginViewModel.loginUser(userEmail, userPassword);
         });
     }

@@ -31,7 +31,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         productQuantityTextView = findViewById(R.id.product_detail_quantity);
         buyNowButton = findViewById(R.id.product_detail_buy_now);
 
-        // Get the product object from the Intent
         Product selectedProduct = (Product) getIntent().getSerializableExtra("product");
 
         if (selectedProduct != null) {
@@ -39,7 +38,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             productPriceTextView.setText("$" + selectedProduct.getPrice());
             productQuantityTextView.setText("" + selectedProduct.getQuantity());
 
-            // Load the product image using Glide
+
             Glide.with(this)
                     .load(selectedProduct.getImageUrl())
                     .placeholder(R.drawable.ic_launcher_background)
@@ -47,12 +46,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                     .into(productImageView);
         }
 
-        // Set up the Buy Now button click listener
         buyNowButton.setOnClickListener(view -> {
             if (selectedProduct != null) {
-                // Navigate to PurchaseActivity and pass the product details
                 Intent intent = new Intent(ProductDetailActivity.this, PurchaseActivity.class);
-                intent.putExtra("product", selectedProduct);  // Pass product data
+                intent.putExtra("product", selectedProduct);
                 startActivity(intent);
             }
         });

@@ -30,29 +30,22 @@ public class HomeFragmentSeller extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_seller, container, false);
 
-        // Initialize ViewModel
         orderViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
 
-        // Initialize RecyclerView
         recyclerView = view.findViewById(R.id.recycler_view_orders);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Set up RecyclerView Adapter
         orderAdapter = new OrderAdapter();
         recyclerView.setAdapter(orderAdapter);
 
-        // Observe LiveData from ViewModel for changes to orders
         orderViewModel.getOrders().observe(getViewLifecycleOwner(), orders -> {
             if (orders != null) {
-                // If orders are successfully fetched, update the adapter
                 orderAdapter.setOrders(orders);
             } else {
-                // If there's an issue (null or empty), show an error message
-                Toast.makeText(getContext(), "Failed to load orders", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.toast_failed_to_load_orders, Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Trigger the fetch of orders
         orderViewModel.fetchOrders();
 
         return view;

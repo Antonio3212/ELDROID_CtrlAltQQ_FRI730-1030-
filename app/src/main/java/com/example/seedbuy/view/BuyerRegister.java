@@ -1,4 +1,3 @@
-// BuyerRegister.java
 package com.example.seedbuy.view;
 
 import android.content.Intent;
@@ -40,7 +39,7 @@ public class BuyerRegister extends AppCompatActivity {
         // Observe LiveData for registration success
         buyerRegisterViewModel.getRegistrationResponse().observe(this, registrationResponse -> {
             if (registrationResponse != null) {
-                Toast.makeText(BuyerRegister.this, registrationResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(BuyerRegister.this, R.string.toast_registration_success, Toast.LENGTH_SHORT).show();
                 // Redirect to login page
                 Intent intent = new Intent(BuyerRegister.this, Login.class);
                 startActivity(intent);
@@ -68,12 +67,12 @@ public class BuyerRegister extends AppCompatActivity {
 
         if (firstNameText.isEmpty() || lastNameText.isEmpty() || emailText.isEmpty() ||
                 passwordText.isEmpty() || confirmPasswordText.isEmpty() || mobileNoText.isEmpty()) {
-            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_all_fields_required, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!passwordText.equals(confirmPasswordText)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_password_mismatch, Toast.LENGTH_SHORT).show();
             return;
         }
 

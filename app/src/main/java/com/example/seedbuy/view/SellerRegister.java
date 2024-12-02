@@ -28,7 +28,6 @@ public class SellerRegister extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seller_register);
 
-        // Initialize EditTexts and Button
         firstNameEditText = findViewById(R.id.etfn);
         lastNameEditText = findViewById(R.id.etln);
         emailEditText = findViewById(R.id.email);
@@ -40,26 +39,22 @@ public class SellerRegister extends AppCompatActivity {
 
         registerButton = findViewById(R.id.btnregister);
 
-        // Initialize ViewModel
         sellerRegisterViewModel = new SellerRegisterViewModel(getApplication());
 
-        // Observe registration response from ViewModel
         sellerRegisterViewModel.getRegistrationResponse().observe(this, new Observer<RegistrationResponse>() {
             @Override
             public void onChanged(RegistrationResponse response) {
                 if ("success".equals(response.getStatus())) {
-                    Toast.makeText(SellerRegister.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                    // Redirect to Login screen after successful registration
+                    Toast.makeText(SellerRegister.this, R.string.toast_registration_success, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SellerRegister.this, Login.class);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(SellerRegister.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SellerRegister.this, getString(R.string.toast_registration_failed, response.getMessage()), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        // Observe error messages
         sellerRegisterViewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String message) {
@@ -67,12 +62,10 @@ public class SellerRegister extends AppCompatActivity {
             }
         });
 
-        // Set the Register button click listener
         registerButton.setOnClickListener(v -> onRegisterClick());
     }
 
     private void onRegisterClick() {
-        // Capture input data from EditText fields
         String firstName = firstNameEditText.getText().toString().trim();
         String lastName = lastNameEditText.getText().toString().trim();
         String email = emailEditText.getText().toString().trim();
@@ -82,33 +75,30 @@ public class SellerRegister extends AppCompatActivity {
         String shopName = shopNameEditText.getText().toString().trim();
         String address = addressEditText.getText().toString().trim();
 
-        // Validate inputs
         if (TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(email) ||
                 TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword) || TextUtils.isEmpty(phone) ||
                 TextUtils.isEmpty(shopName) || TextUtils.isEmpty(address)) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_invalid_email, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_passwords_do_not_match, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (password.length() < 6) {
-            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_password_length, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create the SellerRegistrationRequest
         SellerRegistrationRequest request = new SellerRegistrationRequest(firstName, lastName, email, password, confirmPassword, phone, shopName, address);
 
-        // Call ViewModel to initiate the registration API call
         sellerRegisterViewModel.registerSeller(request);
     }
 }

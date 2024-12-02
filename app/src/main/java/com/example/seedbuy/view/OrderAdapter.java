@@ -16,7 +16,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private List<Order> orders;
 
-    // Setter to update the orders list and notify the adapter of changes
     public void setOrders(List<Order> orders) {
         this.orders = orders;
         notifyDataSetChanged();

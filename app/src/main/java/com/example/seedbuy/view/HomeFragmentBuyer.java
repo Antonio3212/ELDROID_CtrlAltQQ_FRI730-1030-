@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,29 +36,26 @@ public class HomeFragmentBuyer extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2 columns
 
-        // Initialize ProgressBar and Error TextView for UI feedback
         progressBar = view.findViewById(R.id.progressBar);
         errorMessageTextView = view.findViewById(R.id.errorMessageTextView);
 
-        // Initialize ViewModel
         productDisplayViewModel = new ViewModelProvider(this).get(ProductDisplayViewModel.class);
 
-        // Observe the product list from ViewModel
         productDisplayViewModel.getProductList().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {
                 if (products != null) {
                     if (!products.isEmpty()) {
                         if (productAdapter == null) {
-                            productAdapter = new ProductAdapter(products, getContext());  // Pass context here
+                            productAdapter = new ProductAdapter(products, getContext());
                             recyclerView.setAdapter(productAdapter);
                         } else {
                             productAdapter.notifyDataSetChanged();
                         }
                     } else {
-                        // Handle the case where there are no products
                         errorMessageTextView.setVisibility(View.VISIBLE);
-                        errorMessageTextView.setText("No products available.");
+                        errorMessageTextView.setText(R.string.toast_no_products_available);
+                        Toast.makeText(getContext(), R.string.toast_no_products_available, Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.GONE);
                 }
@@ -69,24 +67,24 @@ public class HomeFragmentBuyer extends Fragment {
             public void onChanged(Boolean isLoading) {
                 if (isLoading) {
                     progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(), R.string.toast_loading_products, Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.GONE);
                 }
             }
         });
 
-        // Observe error message if fetching fails
         productDisplayViewModel.getErrorMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String errorMessage) {
                 if (errorMessage != null) {
                     errorMessageTextView.setVisibility(View.VISIBLE);
                     errorMessageTextView.setText(errorMessage);
+                    Toast.makeText(getContext(), R.string.toast_error_fetching_products, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        // Fetch products from the API when the fragment is created
         productDisplayViewModel.fetchProducts();
 
         return view;

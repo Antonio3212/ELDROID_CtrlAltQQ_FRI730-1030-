@@ -54,7 +54,7 @@ public interface ApiService {
     @POST("purchase")
     Call<PurchaseResponse> purchase(@Body PurchaseRequest purchaseRequest);
 
-    @GET("orders")  // The endpoint for fetching all orders
+    @GET("orders")
     Call<List<Order>> getAllOrders();
     @GET("products/{id}")
     Call<Product> getProductById(@Path("id") String productId);
@@ -72,5 +72,6 @@ public interface ApiService {
 
     @DELETE("products/{id}")
     Call<Void> deleteProduct(@Path("id") String productId);
+
 
 }

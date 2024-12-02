@@ -26,13 +26,12 @@ public class InventoryProductAdapter extends RecyclerView.Adapter<InventoryProdu
 
     private List<Product> productList;
     private Context context;
-    private ProductClickListener productClickListener; // Declare ProductClickListener
+    private ProductClickListener productClickListener;
 
-    // Constructor for the adapter with the click listener
     public InventoryProductAdapter(List<Product> productList, Context context, ProductClickListener productClickListener) {
         this.productList = productList;
         this.context = context;
-        this.productClickListener = productClickListener; // Initialize click listener
+        this.productClickListener = productClickListener;
     }
 
     @Override
@@ -45,18 +44,16 @@ public class InventoryProductAdapter extends RecyclerView.Adapter<InventoryProdu
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         Product product = productList.get(position);
 
-        // Bind product details to the views
         holder.nameTextView.setText(product.getName());
         holder.priceTextView.setText("$" + product.getPrice());
         holder.quantityTextView.setText("Quantity: " + product.getQuantity());
 
-        // Load the product image using Glide
-        String imageUrl = product.getImageUrl();  // Assuming getImageUrl() method returns the full URL
+        String imageUrl = product.getImageUrl();
 
         Glide.with(holder.imageView.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_launcher_background)  // Optional placeholder while image is loading
-                .error(R.drawable.ic_launcher_foreground)      // Optional error image if loading fails
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_foreground)
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -72,7 +69,6 @@ public class InventoryProductAdapter extends RecyclerView.Adapter<InventoryProdu
                 })
                 .into(holder.imageView);
 
-        // Handle item click: Trigger the product click listener
         holder.itemView.setOnClickListener(v -> productClickListener.onProductClick(product));
     }
 
@@ -96,13 +92,11 @@ public class InventoryProductAdapter extends RecyclerView.Adapter<InventoryProdu
         }
     }
 
-    // Method to update the product list
     public void updateProductList(List<Product> newProductList) {
         this.productList = newProductList;
         notifyDataSetChanged();
     }
 
-    // Define the ProductClickListener interface
     public interface ProductClickListener {
         void onProductClick(Product product);
     }
